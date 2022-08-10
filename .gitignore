@@ -1,0 +1,8 @@
+obj/
+/tests/bin/
+libft/
+push_swap
+.DS_Store
+/push_swap_tester
+/push_swap_result.log
+/push_swap_run_args.log
