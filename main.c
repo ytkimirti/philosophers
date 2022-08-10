@@ -3,6 +3,7 @@
 #include "utils.h"
 #include "vars.h"
 #include "errors.h"
+#include "init.h"
 
 // Args are: 
 // number_of_philosophers
@@ -37,23 +38,6 @@ bool	parse_args(t_vars *vars, int argc, char **argv)
 	return (true);
 }
 
-bool	init_philosophers(t_vars *vars)
-{
-	int		i;
-
-	vars->philos = (t_philo *)malloc(sizeof(t_philo) * vars->count);
-	if (!vars->philos)
-		return (false);
-	i = 0;
-	while (i < vars->count)
-	{
-		vars->philos[i].id = i + 1;
-		vars->philos[i].thread = NULL;
-		i++;
-	}
-	return (true);
-}
-
 int	main(int argc, char *argv[])
 {
 	t_vars	vars;
@@ -61,6 +45,8 @@ int	main(int argc, char *argv[])
 	if (!parse_args(&vars, argc, argv))
 		return (1);
 	if (!init_philosophers(&vars))
+		return (1);
+	if (!init_mutexes(&vars))
 		return (1);
 	return (0);
 }

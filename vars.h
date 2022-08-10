@@ -21,6 +21,8 @@ typedef struct s_vars
 	int			max_eat_count;
 	bool		is_infinite;
 	long long	start_time;
+	pthread_mutex_t		*forks;
+	pthread_mutex_t		writing_lock;
 }	t_vars;
 
 #endif
