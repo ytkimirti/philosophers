@@ -5,7 +5,7 @@
 
 // 1us is 1000 * 1000 second
 // 1ms is 1000us
-t_time	timestamp(void)
+t_time	get_time(void)
 {
 	struct timeval	t;
 

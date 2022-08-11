@@ -2,10 +2,12 @@
 
 # define UTILS_H
 
-#include <time.h>
+# include <time.h>
+
+# include "vars.h"
 
 int	ft_atoi(const char *nptr);
 int	ft_isspace(char c);
-time_t	*get_time();
+t_time	get_time();
 
 #endif

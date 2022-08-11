@@ -13,6 +13,8 @@ struct s_vars;
 typedef struct s_philo
 {
 	int			id;
+	bool		is_done;
+	t_time	last_eat_time;
 	pthread_t	thread;
 	struct s_vars	*vars;
 }	t_philo;
@@ -26,6 +28,7 @@ typedef struct s_vars
 	int			sleep_time;
 	int			max_eat_count;
 	bool		is_infinite;
+	bool		stop;
 	t_time	start_time;
 	pthread_mutex_t		*forks;
 	pthread_mutex_t		writing_lock;

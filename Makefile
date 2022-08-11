@@ -53,8 +53,8 @@ test: $(TEST_BINS)
 	for test in $(TEST_BINS) ; do ./$$test ; done
 
 run: all
-	@# TODO: Fill these
-	./philo 2 3 4 5 3
+	@# count die eat sleep [max_eat_count]
+	./philo 2 3000 1000 500 3
 
 re: fclean all
 
