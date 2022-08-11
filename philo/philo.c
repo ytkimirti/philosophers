@@ -17,6 +17,17 @@ void	print_status(t_philo	*philo, char *msg)
 	pthread_mutex_unlock(&philo->vars->writing_lock);
 }
 
+void	wait_ms(t_vars *vars, int	ms)
+{
+	t_time	start_time;
+
+	start_time = get_time();
+	while (!vars->stop && (get_time() - start_time) / 1000 < ms)
+	{
+		usleep(30);
+	}
+}
+
 // NOTES:
 // Fork 0 is at the right of philo one.
 // Philo id's start from 1
@@ -38,7 +49,7 @@ void	*philo_loop(void *arg)
 		pthread_mutex_lock(&p->vars->forks[(p->id - 2) % p->vars->count]);
 		p->last_eat_time = get_time();
 		print_status(p, "has taken a fork");
-		usleep(1000 * p->vars->eat_time);
+		wait_ms(p->vars, p->vars->eat_time);
 		eat_count++;
 		pthread_mutex_unlock(&p->vars->forks[(p->id - 1) % p->vars->count]);
 		pthread_mutex_unlock(&p->vars->forks[(p->id - 2) % p->vars->count]);
@@ -48,7 +59,7 @@ void	*philo_loop(void *arg)
 			return (NULL);
 		}
 		print_status(p, "is sleeping");
-		usleep(1000 * p->vars->sleep_time);
+		wait_ms(p->vars, p->vars->sleep_time);
 		print_status(p, "is thinking");
 	}
 
