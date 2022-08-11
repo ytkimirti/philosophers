@@ -6,8 +6,8 @@
 
 # include "vars.h"
 
-int	ft_atoi(const char *nptr);
-int	ft_isspace(char c);
-t_time	get_time();
+int		ft_atoi(const char *nptr);
+int		ft_isspace(char c);
+t_time	get_time(void);
 
 #endif

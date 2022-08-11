@@ -10,20 +10,31 @@
 void	print_status(t_philo	*philo, char *msg)
 {
 	if (philo->vars->stop)
-		return;
+		return ;
 	pthread_mutex_lock(&philo->vars->writing_lock);
 	if (!philo->vars->stop)
 		printf("%lld %d %s\n", get_time(), philo->id, msg);
 	pthread_mutex_unlock(&philo->vars->writing_lock);
 }
 
-void	wait_ms(t_vars *vars, int	ms)
+void	wait_ms(t_vars *vars, int ms)
 {
 	t_time	start_time;
 
 	start_time = get_time();
 	while (!vars->stop && get_time() - start_time < ms)
 		usleep(30);
+}
+
+void	philo_eat(t_philo *p)
+{
+	pthread_mutex_lock(&p->vars->forks[(p->id - 1) % p->vars->count]);
+	pthread_mutex_lock(&p->vars->forks[(p->id - 2) % p->vars->count]);
+	p->last_eat_time = get_time();
+	print_status(p, "has taken a fork");
+	wait_ms(p->vars, p->vars->eat_time);
+	pthread_mutex_unlock(&p->vars->forks[(p->id - 1) % p->vars->count]);
+	pthread_mutex_unlock(&p->vars->forks[(p->id - 2) % p->vars->count]);
 }
 
 // NOTES:
@@ -35,7 +46,7 @@ void	wait_ms(t_vars *vars, int	ms)
 void	*philo_loop(void *arg)
 {
 	t_philo	*p;
-	int			eat_count;
+	int		eat_count;
 
 	p = (t_philo *)arg;
 	eat_count = 0;
@@ -43,14 +54,8 @@ void	*philo_loop(void *arg)
 		usleep(1000 * (p->vars->eat_time / 2));
 	while (!p->vars->stop)
 	{
-		pthread_mutex_lock(&p->vars->forks[(p->id - 1) % p->vars->count]);
-		pthread_mutex_lock(&p->vars->forks[(p->id - 2) % p->vars->count]);
-		p->last_eat_time = get_time();
-		print_status(p, "has taken a fork");
-		wait_ms(p->vars, p->vars->eat_time);
+		philo_eat(p);
 		eat_count++;
-		pthread_mutex_unlock(&p->vars->forks[(p->id - 1) % p->vars->count]);
-		pthread_mutex_unlock(&p->vars->forks[(p->id - 2) % p->vars->count]);
 		if (!p->vars->is_infinite && eat_count >= p->vars->max_eat_count)
 		{
 			p->is_done = true;
@@ -60,6 +65,5 @@ void	*philo_loop(void *arg)
 		wait_ms(p->vars, p->vars->sleep_time);
 		print_status(p, "is thinking");
 	}
-
 	return (NULL);
 }

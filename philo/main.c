@@ -40,39 +40,45 @@ bool	parse_args(t_vars *vars, int argc, char **argv)
 	return (true);
 }
 
+bool	check_is_all_done(t_vars *vars)
+{
+	int	i;
+
+	i = 0;
+	while (i < vars->count)
+	{
+		if (!vars->philos[i].is_done)
+			return (false);
+		i++;
+	}
+	return (true);
+}
+
 void	check_for_death(t_vars *vars)
 {
 	int		i;
-	bool	is_all_done;
+	t_time	diff;
 
-	while(true)
+	while (true)
 	{
 		usleep(50);
 		i = 0;
 		while (i < vars->count)
 		{
-			if (!vars->philos->is_done
-					&& get_time() - vars->philos[i].last_eat_time > vars->starve_time)
+			diff = get_time() - vars->philos[i].last_eat_time;
+			if (!vars->philos->is_done && diff > vars->starve_time)
 			{
 				print_status(&vars->philos[i], "died");
 				vars->stop = true;
-				return;
+				return ;
 			}
 			i++;
 		}
-		i = 0;
-		is_all_done = true;
-		while (i < vars->count)
+		if (check_is_all_done(vars))
 		{
-			if (!vars->philos[i].is_done)
-			{
-				is_all_done = false;
-				break;
-			}
-			i++;
+			vars->stop = true;
+			return ;
 		}
-		if (is_all_done)
-			return;
 	}
 }
 

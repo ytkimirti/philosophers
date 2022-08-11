@@ -29,9 +29,9 @@ bool	init_philosophers(t_vars *vars)
 
 bool	init_mutexes(t_vars *vars)
 {
-	int i;
+	int	i;
 
-	vars->forks = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * vars->count);
+	vars->forks = malloc(sizeof(pthread_mutex_t) * vars->count);
 	if (!vars->forks)
 		return (exit_program("malloc failed!"));
 	i = 0;
@@ -48,14 +48,15 @@ bool	init_mutexes(t_vars *vars)
 
 bool	init_threads(t_vars *vars)
 {
-	int	i;
+	int			i;
+	pthread_t	*thread;
 
 	i = 0;
 	vars->stop = false;
-
 	while (i < vars->count)
 	{
-		if (pthread_create(&(vars->philos[i].thread), NULL, philo_loop, (void *)(&vars->philos[i])) != 0)
+		thread = &vars->philos[i].thread;
+		if (pthread_create(thread, NULL, philo_loop, &vars->philos[i]))
 			return (exit_program("Creating thread failed"));
 		i++;
 	}
@@ -75,7 +76,7 @@ void	destroy_mutexes(t_vars *vars)
 	pthread_mutex_destroy(&(vars->writing_lock));
 }
 
-void join_threads(t_vars *vars)
+void	join_threads(t_vars *vars)
 {
 	int	i;
 
