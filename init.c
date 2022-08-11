@@ -1,4 +1,5 @@
 #include "errors.h"
+#include "init.h"
 #include "philo.h"
 #include "vars.h"
 #include <stdlib.h>
@@ -23,7 +24,6 @@ bool	init_philosophers(t_vars *vars)
 bool	init_mutexes(t_vars *vars)
 {
 	int i;
-	t_philo	*philo;
 
 	i = 0;
 	while (i < vars->count)
@@ -43,9 +43,34 @@ bool	init_threads(t_vars *vars)
 	i = 0;
 	while (i < vars->count)
 	{
-		if (!pthread_create(&(vars->philos[i].thread), NULL, philo_loop, (void *)vars))
+		if (!pthread_create(&(vars->philos[i].thread), NULL, philo_loop, (void *)(&vars->philos[i])))
 			return (exit_program("Creating thread failed"));
 		i++;
 	}
 	return (true);
+}
+
+void	destroy_mutexes(t_vars *vars)
+{
+	int	i;
+
+	i = 0;
+	while (i < vars->count)
+	{
+		pthread_mutex_destroy(&(vars->forks[i]));
+		i++;
+	}
+	pthread_mutex_destroy(&(vars->writing_lock));
+}
+
+void join_threads(t_vars *vars)
+{
+	int	i;
+
+	i = 0;
+	while (i < vars->count)
+	{
+		pthread_join(vars->philos[i].thread, NULL);
+		i++;
+	}
 }

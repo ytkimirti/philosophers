@@ -22,6 +22,9 @@ ENTRY_SRCS = $(SRC_DIR)/main.c
 SRCS = $(SRC_DIR)/errors.c \
 			 $(SRC_DIR)/ft_atoi.c \
 			 $(SRC_DIR)/ft_isspace.c \
+			 $(SRC_DIR)/util_time.c \
+			 $(SRC_DIR)/philo.c \
+			 $(SRC_DIR)/init.c \
 
 TEST_SRCS = 
 

@@ -48,5 +48,9 @@ int	main(int argc, char *argv[])
 		return (1);
 	if (!init_mutexes(&vars))
 		return (1);
+	if (!init_threads(&vars))
+		return (1);
+	join_threads(&vars);
+	destroy_mutexes(&vars);
 	return (0);
 }
