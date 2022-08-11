@@ -50,7 +50,6 @@ bool	init_threads(t_vars *vars)
 {
 	int	i;
 
-	printf(YEL "Creating threads...\n" RST);
 	i = 0;
 	vars->stop = false;
 
@@ -58,7 +57,6 @@ bool	init_threads(t_vars *vars)
 	{
 		if (pthread_create(&(vars->philos[i].thread), NULL, philo_loop, (void *)(&vars->philos[i])) != 0)
 			return (exit_program("Creating thread failed"));
-		printf(YEL "Thread for philo %d created!\n" RST, vars->philos[i].id);
 		i++;
 	}
 	return (true);
@@ -81,12 +79,10 @@ void join_threads(t_vars *vars)
 {
 	int	i;
 
-	printf(YEL "Joining threads...\n" RST);
 	i = 0;
 	while (i < vars->count)
 	{
 		pthread_join(vars->philos[i].thread, NULL);
-		printf(YEL "Joined thread %d\n" RST, vars->philos[i].id);
 		i++;
 	}
 }

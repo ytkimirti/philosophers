@@ -80,7 +80,6 @@ int	main(int argc, char *argv[])
 {
 	t_vars	vars;
 
-	vars.start_time = get_time();
 	if (!parse_args(&vars, argc, argv))
 		return (1);
 	if (!init_philosophers(&vars))

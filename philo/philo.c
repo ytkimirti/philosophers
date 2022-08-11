@@ -13,7 +13,7 @@ void	print_status(t_philo	*philo, char *msg)
 		return;
 	pthread_mutex_lock(&philo->vars->writing_lock);
 	if (!philo->vars->stop)
-		printf("%lld %d %s\n", get_time() - philo->vars->start_time, philo->id, msg);
+		printf("%lld %d %s\n", get_time(), philo->id, msg);
 	pthread_mutex_unlock(&philo->vars->writing_lock);
 }
 
@@ -22,10 +22,8 @@ void	wait_ms(t_vars *vars, int	ms)
 	t_time	start_time;
 
 	start_time = get_time();
-	while (!vars->stop && (get_time() - start_time) / 1000 < ms)
-	{
+	while (!vars->stop && get_time() - start_time < ms)
 		usleep(30);
-	}
 }
 
 // NOTES:
