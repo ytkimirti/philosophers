@@ -15,7 +15,7 @@
 // [number_of_times_each_philosopher_must_eat]
 bool	parse_args(t_vars *vars, int argc, char **argv)
 {
-	if (argc < 5 || argc > 6)
+	if (argc != 4 && argc != 5)
 		return (exit_program("Argument count does not match\n"
 				"./philo time_to_die time_to_eat "
 				"time_to_sleep [must_eat_count]"));
