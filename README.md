@@ -1,3 +1,4 @@
 # Philosophers
 
-Hey you, ignore this repo for now because it's not finished.
+An implementation of the classic problem of synchronizing multiple threads
+or processes.
