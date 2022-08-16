@@ -2,7 +2,7 @@
 
 # define VARS_H
 
-# include <pthread.h>
+# include <semaphore.h>
 # include <stdbool.h>
 # include <sys/time.h>
 
@@ -29,8 +29,8 @@ typedef struct s_vars
 	int				max_eat_count;
 	bool			is_infinite;
 	bool			stop;
-	pthread_mutex_t	*forks;
-	pthread_mutex_t	writing_lock;
+	sem_t           forks;
+	sem_t       	writing_lock;
 }	t_vars;
 
 #endif
