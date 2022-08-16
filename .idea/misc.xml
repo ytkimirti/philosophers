@@ -4,17 +4,17 @@
   <component name="MakefileSettings">
     <option name="linkedExternalProjectsSettings">
       <MakefileProjectSettings>
-        <option name="externalProjectPath" value="$PROJECT_DIR$/philo" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/philo_bonus" />
         <option name="modules">
           <set>
-            <option value="$PROJECT_DIR$/philo" />
+            <option value="$PROJECT_DIR$/philo_bonus" />
           </set>
         </option>
         <option name="version" value="2" />
       </MakefileProjectSettings>
     </option>
   </component>
-  <component name="MakefileWorkspace" PROJECT_DIR="$PROJECT_DIR$/philo">
+  <component name="MakefileWorkspace" PROJECT_DIR="$PROJECT_DIR$/philo_bonus">
     <contentRoot DIR="$PROJECT_DIR$" />
   </component>
 </project>
