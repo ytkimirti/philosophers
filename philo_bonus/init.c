@@ -4,6 +4,8 @@
 #include "vars.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <sys/fcntl.h>
+#include <unistd.h>
 #include "colors.h"
 #include "utils.h"
 
@@ -18,7 +20,6 @@ bool	init_philosophers(t_vars *vars)
 	while (i < vars->count)
 	{
 		vars->philos[i].id = i + 1;
-		vars->philos[i].thread = NULL;
 		vars->philos[i].is_done = false;
 		vars->philos[i].vars = vars;
 		vars->philos[i].last_eat_time = get_time();
@@ -27,37 +28,29 @@ bool	init_philosophers(t_vars *vars)
 	return (true);
 }
 
-bool	init_mutexes(t_vars *vars)
+bool	init_semaphores(t_vars *vars)
 {
 	int	i;
 
-	vars->forks = malloc(sizeof(pthread_mutex_t) * vars->count);
-	if (!vars->forks)
-		return (exit_program("malloc failed!"));
-	i = 0;
-	while (i < vars->count)
-	{
-		if (pthread_mutex_init(&(vars->forks[i]), NULL))
-			return (false);
-		i++;
-	}
-	if (pthread_mutex_init(&(vars->writing_lock), NULL))
-		return (false);
+	vars->sem_forks = sem_open("philosopher_forks", O_CREAT);
+	vars->sem_writing = sem_open("philosopher_writing", O_CREAT);
 	return (true);
 }
 
-bool	init_threads(t_vars *vars)
+bool	init_processes(t_vars *vars)
 {
-	int			i;
-	pthread_t	*thread;
+	int		i;
+	int		pid;
 
 	i = 0;
 	vars->stop = false;
 	while (i < vars->count)
 	{
-		thread = &vars->philos[i].thread;
-		if (pthread_create(thread, NULL, philo_loop, &vars->philos[i]))
+		pid = fork();
+		if (pid == -1)
 			return (exit_program("Creating thread failed"));
+		else if (pid == 0)
+			philo_loop();
 		i++;
 	}
 	return (true);
@@ -76,7 +69,7 @@ void	destroy_mutexes(t_vars *vars)
 	pthread_mutex_destroy(&(vars->writing_lock));
 }
 
-void	join_threads(t_vars *vars)
+void	join_processes(t_vars *vars)
 {
 	int	i;
 

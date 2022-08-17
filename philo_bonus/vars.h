@@ -15,7 +15,6 @@ typedef struct s_philo
 	int						id;
 	bool					is_done;
 	t_time					last_eat_time;
-	pthread_t				thread;
 	struct s_vars			*vars;
 }	t_philo;
 
@@ -29,8 +28,8 @@ typedef struct s_vars
 	int				max_eat_count;
 	bool			is_infinite;
 	bool			stop;
-	sem_t           forks;
-	sem_t       	writing_lock;
+	sem_t			*sem_forks;
+	sem_t			*sem_writing;
 }	t_vars;
 
 #endif
