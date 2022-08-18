@@ -15,7 +15,7 @@ bool	init_philosophers(t_vars *vars)
 
 	vars->philos = (t_philo *)malloc(sizeof(t_philo) * vars->count);
 	if (!vars->philos)
-		return (exit_program("malloc failed!"));
+		return (exit_program("malloc on philosopher objects failed!"));
 	i = 0;
 	while (i < vars->count)
 	{
@@ -30,8 +30,6 @@ bool	init_philosophers(t_vars *vars)
 
 bool	init_semaphores(t_vars *vars)
 {
-	int	i;
-
 	vars->sem_forks = sem_open("philosopher_forks", O_CREAT);
 	vars->sem_writing = sem_open("philosopher_writing", O_CREAT);
 	return (true);
