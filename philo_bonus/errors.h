@@ -4,6 +4,6 @@
 
 # include <stdbool.h>
 
-bool	exit_program(char *message);
+void	exit_program(const char *message);
 
 #endif

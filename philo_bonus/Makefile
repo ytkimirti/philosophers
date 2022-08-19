@@ -19,12 +19,16 @@ TEST_DIR = tests
 ENTRY_SRCS = $(SRC_DIR)/main.c
 
 # You SHALL NOT include entry srcs here.
-SRCS = $(SRC_DIR)/errors.c \
-			 $(SRC_DIR)/ft_atoi.c \
-			 $(SRC_DIR)/ft_isspace.c \
-			 $(SRC_DIR)/util_time.c \
-			 $(SRC_DIR)/philo.c \
-			 $(SRC_DIR)/init.c \
+SRCS = \
+	$(SRC_DIR)/errors.c \
+	$(SRC_DIR)/ft_atoi.c \
+	$(SRC_DIR)/ft_isspace.c \
+	$(SRC_DIR)/init.c \
+	$(SRC_DIR)/parse.c \
+	$(SRC_DIR)/philo.c \
+	$(SRC_DIR)/semaphores.c \
+	$(SRC_DIR)/util_time.c \
+
 
 TEST_SRCS = 
 

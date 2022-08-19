@@ -8,6 +8,34 @@
 #include "errors.h"
 #include "init.h"
 #include "parse.h"
+#include "semaphores.h"
+#include <signal.h>
+
+void	wait_for_death(t_vars *vars, int *pids)
+{
+	int i;
+
+	usleep(1000 * 1000 * 2);
+	i = 0;
+	while (i < vars->count)
+	{
+		printf("%d\n", pids[i]);
+		i++;
+	}
+}
+
+void	kill_processes(t_vars *vars, int *pids)
+{
+	int	i;
+
+	sem_wait(vars->sem_writing);
+	i = 0;
+	while (i < vars->count)
+	{
+		kill(pids[i], SIGTERM);
+		i++;
+	}
+}
 
 // There N forks in the middle of the table
 // Processes need to know these:
@@ -18,17 +46,13 @@
 int	main(int argc, char *argv[])
 {
 	t_vars	vars;
+	int		*pids;
 
-	if (!parse_args(&vars, argc, argv))
-		return (1);
-	if (!init_philosophers(&vars))
-		return (1);
-	if (!init_semaphores(&vars))
-		return (1);
-	if (!init_processes(&vars))
-		return (1);
-	check_for_death(&vars);
-	join_threads(&vars);
-	destroy_mutexes(&vars);
+	parse_args(&vars, argc, argv);
+	init_philosophers(&vars);
+	init_semaphores(&vars);
+	pids = init_processes(&vars);
+	wait_for_death(&vars, pids);
+	close_semaphores(&vars);
 	return (0);
 }

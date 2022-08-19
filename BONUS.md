@@ -47,7 +47,7 @@ memory, the thread can check if it's parent is dead or not.
             O____________________________
             |							|
             |							|
-  0ms     philo						   child
+  0ms     philo						   thread
             |							|
             |							|
   5ms       |<--------------------------O
@@ -61,7 +61,7 @@ memory, the thread can check if it's parent is dead or not.
             |	                        |
   20ms      |<--------------------------O
             | dead (write to stdout)    |
-            |                           X	child commits
+            |                           X	thread commits
   ...       |                               suicide
             | asd
             |

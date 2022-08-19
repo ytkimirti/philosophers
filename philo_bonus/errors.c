@@ -1,12 +1,11 @@
 #include <stdio.h>
-#include "colors.h"
-#include <stdbool.h>
+#include <stdlib.h>
 
-bool	exit_program(char *message)
+void	exit_program(const char *message)
 {
 	if (message == NULL)
 		printf("Error\n");
 	else
 		printf("Error: %s\n", message);
-	return (false);
+	exit(1);
 }

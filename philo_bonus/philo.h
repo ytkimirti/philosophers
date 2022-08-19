@@ -4,7 +4,6 @@
 
 # include "vars.h"
 
-void	*philo_loop(void *arg);
-void	print_status(t_philo	*philo, char *msg);
+void	philo_entry(t_philo *p);
 
 #endif
