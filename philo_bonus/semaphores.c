@@ -1,6 +1,14 @@
-//
-// Created by Yusuf Kımırtı on 18.08.2022.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   semaphores.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ykimirti <ykimirti@42istanbul.com.tr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/19 14:39:47 by ykimirti          #+#    #+#             */
+/*   Updated: 2022/08/19 14:40:03 by ykimirti         ###   ########.tr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "semaphores.h"
 #include <semaphore.h>
@@ -43,7 +51,7 @@ void	close_semaphore(sem_t *sem, const char *name)
 
 void	close_semaphores(t_vars *vars)
 {
-	close_semaphore(vars->sem_forks,SEM_FORKS);
-	close_semaphore(vars->sem_closing,SEM_CLOSING);
-	close_semaphore(vars->sem_writing,SEM_WRITING);
+	close_semaphore(vars->sem_forks, SEM_FORKS);
+	close_semaphore(vars->sem_closing, SEM_CLOSING);
+	close_semaphore(vars->sem_writing, SEM_WRITING);
 }
