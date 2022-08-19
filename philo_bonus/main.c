@@ -6,7 +6,7 @@
 /*   By: ykimirti <ykimirti@42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 14:39:07 by ykimirti          #+#    #+#             */
-/*   Updated: 2022/08/19 14:39:08 by ykimirti         ###   ########.tr       */
+/*   Updated: 2022/08/19 17:02:23 by ykimirti         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,7 @@
 
 void	wait_for_death(t_vars *vars, int *pids)
 {
-	int	i;
-
-	usleep(1000 * 1000 * 2);
-	i = 0;
-	while (i < vars->count)
-	{
-		printf("%d\n", pids[i]);
-		i++;
-	}
+	sem_wait(vars->sem_closing);
 }
 
 void	kill_processes(t_vars *vars, int *pids)
@@ -41,6 +33,7 @@ void	kill_processes(t_vars *vars, int *pids)
 	int	i;
 
 	sem_wait(vars->sem_writing);
+	// printf("Main killing all the processes\n");
 	i = 0;
 	while (i < vars->count)
 	{
@@ -65,6 +58,7 @@ int	main(int argc, char *argv[])
 	init_semaphores(&vars);
 	pids = init_processes(&vars);
 	wait_for_death(&vars, pids);
+	kill_processes(&vars, pids);
 	close_semaphores(&vars);
 	return (0);
 }

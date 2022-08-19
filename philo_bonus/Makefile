@@ -1,4 +1,4 @@
-NAME = philo
+NAME = philo_bonus
 
 # NOTE: Add -Werror here before pushing to intra
 CFLAGS = -MD -Wall -Wextra -Ilibft -g
@@ -60,6 +60,9 @@ run: all
 	@# count die eat sleep [max_eat_count]
 	./philo 2 3000 1000 500 3
 
+socrates: 
+	python3 ../socrates/socrates.py -n 0 ../
+
 re: fclean all
 
 clean:
@@ -67,5 +70,7 @@ clean:
 
 fclean: clean
 	rm -f $(NAME)
+
+.PHONY: all test run socrates re clean fclean clean
 
 -include $(OBJ_DIR)/*.d

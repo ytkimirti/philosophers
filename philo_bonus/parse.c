@@ -6,7 +6,7 @@
 /*   By: ykimirti <ykimirti@42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 18:32:03 by ykimirti          #+#    #+#             */
-/*   Updated: 2022/08/19 10:33:40 by ykimirti         ###   ########.tr       */
+/*   Updated: 2022/08/19 16:56:07 by ykimirti         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,12 @@ void	parse_args(t_vars *vars, int argc, char **argv)
 	vars->sleep_time = ft_atoi(argv[4]);
 	if (argc == 6)
 	{
-		vars->is_infinite = false;
+		vars->is_infinite = true;
 		vars->max_eat_count = ft_atoi(argv[5]);
 	}
 	else
 	{
-		vars->is_infinite = true;
+		vars->is_infinite = false;
 		vars->max_eat_count = 0;
 	}
 	check_values(vars);
