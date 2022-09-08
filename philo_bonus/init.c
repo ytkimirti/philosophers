@@ -6,7 +6,7 @@
 /*   By: ykimirti <ykimirti@42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 14:39:18 by ykimirti          #+#    #+#             */
-/*   Updated: 2022/08/19 14:39:18 by ykimirti         ###   ########.tr       */
+/*   Updated: 2022/09/08 14:37:10 by ykimirti         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void	init_philosophers(t_vars *vars)
 		i++;
 	}
 }
-
 
 int	*init_processes(t_vars *vars)
 {
