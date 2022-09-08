@@ -28,6 +28,9 @@ SRCS = \
 	$(SRC_DIR)/philo.c \
 	$(SRC_DIR)/semaphores.c \
 	$(SRC_DIR)/util_time.c \
+	$(SRC_DIR)/ft_itoa.c \
+	$(SRC_DIR)/ft_strjoin.c \
+	$(SRC_DIR)/ft_strlen.c \
 
 
 TEST_SRCS = 
