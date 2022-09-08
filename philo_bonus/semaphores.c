@@ -6,7 +6,7 @@
 /*   By: ykimirti <ykimirti@42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 14:39:47 by ykimirti          #+#    #+#             */
-/*   Updated: 2022/08/19 14:40:03 by ykimirti         ###   ########.tr       */
+/*   Updated: 2022/09/08 15:29:29 by ykimirti         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,29 @@
 #include <semaphore.h>
 #include "errors.h"
 #include <stdio.h>
+#include "utils.h"
+#include <stdlib.h>
 #include <sys/errno.h>
 
 #define SEM_FORKS "/phil_forks"
 #define SEM_CLOSING "/phil_closing"
 #define SEM_WRITING "/phil_writing"
+
+#define SEM_STATE_READ "/phil_state_read"
+
+sem_t	*open_semaphore_with_id(char *prefix, int id, int initial)
+{
+	char	*id_str;
+	char	*final_str;
+	sem_t	*sem;
+
+	id_str = ft_itoa(id);
+	final_str = ft_strjoin(prefix, id_str);
+	sem = open_semaphore(final_str, initial);
+	free(id_str);
+	free(final_str);
+	return (sem);
+}
 
 // Give the read write execute permissions
 // to the semaphore, so:
