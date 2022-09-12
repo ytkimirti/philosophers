@@ -6,7 +6,7 @@
 /*   By: ykimirti <ykimirti@42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 14:39:35 by ykimirti          #+#    #+#             */
-/*   Updated: 2022/08/19 16:57:08 by ykimirti         ###   ########.tr       */
+/*   Updated: 2022/09/12 11:48:03 by ykimirti         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,33 +16,10 @@
 #include <stdio.h>
 #include <semaphore.h>
 #include <stdlib.h>
+#include "semaphores.h"
 #include "utils.h"
 #include <pthread.h>
-
-typedef struct s_state
-{
-	time_t	last_eat_time;
-	t_philo	*philo;
-	int		eat_count;
-}	t_state;
-
-// No need to terminate with newline
-void	print_status(t_philo *philo, char *msg)
-{
-	sem_wait(philo->vars->sem_writing);
-	if (!philo->vars->stop)
-		printf("%lld %d %s\n", get_time(), philo->id, msg);
-	sem_post(philo->vars->sem_writing);
-}
-
-void	wait_ms(int ms)
-{
-	t_time	start_time;
-
-	start_time = get_time();
-	while (get_time() - start_time < ms)
-		usleep(30);
-}
+#include "philo_utils.h"
 
 // This threads checks if the process
 // starved or not, every 1ms.
@@ -76,13 +53,20 @@ void	*thread_func(void *arg)
 	return (NULL);
 }
 
+void	init_state(t_state *state, t_philo *p)
+{
+	state->philo = p;
+	state->last_eat_time = get_time();
+	state->sem_state_read = open_semaphore_with_id(SEM_STATE_READ,
+			state->philo->id, 1);
+}
+
 void	philo_entry(t_philo *p)
 {
 	t_state		state;
 	pthread_t	thread;
 
-	state.philo = p;
-	state.last_eat_time = get_time();
+	init_state(&state, p);
 	pthread_create(&thread, NULL, thread_func, (void *)&state);
 	if (p->id % 2 == 0)
 		usleep(1000 * (p->vars->eat_time / 2));
@@ -92,12 +76,10 @@ void	philo_entry(t_philo *p)
 		print_status(p, "has taken a fork");
 		sem_wait(p->vars->sem_forks);
 		print_status(p, "has taken a fork");
-
-		state.last_eat_time = get_time();
+		set_last_eat_time(&state);
 		wait_ms(p->vars->eat_time);
 		sem_post(p->vars->sem_forks);
 		sem_post(p->vars->sem_forks);
-
 		state.eat_count++;
 		print_status(p, "is sleeping");
 		wait_ms(p->vars->sleep_time);

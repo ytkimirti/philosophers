@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   semaphores.h                                       :+:      :+:    :+:   */
+/*   philo_utils.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ykimirti <ykimirti@42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/19 14:40:10 by ykimirti          #+#    #+#             */
-/*   Updated: 2022/09/12 11:40:09 by ykimirti         ###   ########.tr       */
+/*   Created: 2022/09/12 11:46:42 by ykimirti          #+#    #+#             */
+/*   Updated: 2022/09/12 11:47:54 by ykimirti         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SEMAPHORES_H
+#ifndef PHILO_UTILS_H
 
-# define SEMAPHORES_H
+# define PHILO_UTILS_H
 
 # include "vars.h"
 
-# define SEM_FORKS "/phil_forks"
-# define SEM_CLOSING "/phil_closing"
-# define SEM_WRITING "/phil_writing"
+typedef struct s_state
+{
+	time_t	last_eat_time;
+	t_philo	*philo;
+	int		eat_count;
+	sem_t	*sem_state_read;
+}	t_state;
 
-# define SEM_STATE_READ "/phil_state_read"
-
-void	init_semaphores(t_vars *vars);
-void	close_semaphores(t_vars *vars);
-sem_t	*open_semaphore(char *name, int initial);
-sem_t	*open_semaphore_with_id(char *prefix, int id, int initial);
-void	close_semaphore(sem_t *sem, const char *name);
+void	wait_ms(int ms);
+void	print_status(t_philo *philo, char *msg);
+void	set_last_eat_time(t_state *state);
 
 #endif

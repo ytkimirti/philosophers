@@ -6,12 +6,13 @@
 /*   By: ykimirti <ykimirti@42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 14:39:07 by ykimirti          #+#    #+#             */
-/*   Updated: 2022/09/08 15:31:27 by ykimirti         ###   ########.tr       */
+/*   Updated: 2022/09/12 11:37:46 by ykimirti         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include "philo.h"
+#include <sys/fcntl.h>
 #include <sys/semaphore.h>
 #include <unistd.h>
 #include <stdlib.h>
@@ -51,7 +52,7 @@ int	main(int argc, char *argv[])
 	init_philosophers(&vars);
 	init_semaphores(&vars);
 	pids = init_processes(&vars);
-	sem_wait(vars->sem_closing);
+	sem_wait(vars.sem_closing);
 	kill_processes(&vars, pids);
 	close_semaphores(&vars);
 	return (0);

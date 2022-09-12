@@ -1,8 +1,9 @@
 NAME = philo_bonus
 
 # NOTE: Add -Werror here before pushing to intra
-CFLAGS = -MD -Wall -Wextra -Ilibft -g
-LDFLAGS =
+# Use -fsanitize=thread for thread
+CFLAGS = -MD -Wall -Wextra -Ilibft -g -fsanitize=address
+LDFLAGS = -fsanitize=address
 LDLIBS =
 
 # NOTE: You have to have libcriterion.a file in your LIBRARY_PATH and criterion.h file in C_INCLUDE_PATH
@@ -61,7 +62,7 @@ test: $(TEST_BINS)
 
 run: all
 	@# count die eat sleep [max_eat_count]
-	./philo 2 3000 1000 500 3
+	./$(NAME) 2 3000 1000 500 3
 
 socrates: 
 	python3 ../socrates/socrates.py -n 0 ../
