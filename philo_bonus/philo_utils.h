@@ -6,7 +6,7 @@
 /*   By: ykimirti <ykimirti@42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 11:46:42 by ykimirti          #+#    #+#             */
-/*   Updated: 2022/09/12 11:47:54 by ykimirti         ###   ########.tr       */
+/*   Updated: 2022/09/13 13:16:39 by ykimirti         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct s_state
 
 void	wait_ms(int ms);
 void	print_status(t_philo *philo, char *msg);
-void	set_last_eat_time(t_state *state);
+void	set_last_eat_time(t_state *state, sem_t *sem);
+void	increment_eat_count(t_state *state, sem_t *sem);
 
 #endif

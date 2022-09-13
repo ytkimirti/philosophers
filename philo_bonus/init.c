@@ -6,7 +6,7 @@
 /*   By: ykimirti <ykimirti@42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 14:39:18 by ykimirti          #+#    #+#             */
-/*   Updated: 2022/09/08 14:37:10 by ykimirti         ###   ########.tr       */
+/*   Updated: 2022/09/13 13:09:30 by ykimirti         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,10 @@ int	*init_processes(t_vars *vars)
 		if (pid == -1)
 			exit_program("Forking process failed");
 		else if (pid == 0)
+		{
 			philo_entry(&vars->philos[i]);
+			exit(0);
+		}
 		pids[i] = pid;
 		i++;
 	}

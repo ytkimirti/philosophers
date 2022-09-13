@@ -6,7 +6,7 @@
 /*   By: ykimirti <ykimirti@42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 11:45:58 by ykimirti          #+#    #+#             */
-/*   Updated: 2022/09/12 11:49:22 by ykimirti         ###   ########.tr       */
+/*   Updated: 2022/09/13 20:09:43 by ykimirti         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,16 @@ void	print_status(t_philo *philo, char *msg)
 	sem_post(philo->vars->sem_writing);
 }
 
-void	set_last_eat_time(t_state *state)
+void	set_last_eat_time(t_state *state, sem_t *sem)
 {
-	sem_wait(state->sem_state_read);
+	sem_wait(sem);
 	state->last_eat_time = get_time();
-	sem_post(state->sem_state_read);
+	sem_post(sem);
 }
 
-void	incremenet_eat_count(t_state *state)
+void	increment_eat_count(t_state *state, sem_t *sem)
 {
-	sem_wait(state->sem_state_read);
+	sem_wait(sem);
 	state->eat_count++;
-	sem_post(state->sem_state_read);
+	sem_post(sem);
 }

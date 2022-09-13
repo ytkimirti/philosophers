@@ -2,8 +2,8 @@ NAME = philo_bonus
 
 # NOTE: Add -Werror here before pushing to intra
 # Use -fsanitize=thread for thread
-CFLAGS = -MD -Wall -Wextra -Ilibft -g -fsanitize=address
-LDFLAGS = -fsanitize=address
+CFLAGS = -MD -Wall -Wextra -Ilibft -g -fsanitize=thread
+LDFLAGS = -fsanitize=thread
 LDLIBS =
 
 # NOTE: You have to have libcriterion.a file in your LIBRARY_PATH and criterion.h file in C_INCLUDE_PATH
@@ -21,17 +21,20 @@ ENTRY_SRCS = $(SRC_DIR)/main.c
 
 # You SHALL NOT include entry srcs here.
 SRCS = \
-	$(SRC_DIR)/errors.c \
 	$(SRC_DIR)/ft_atoi.c \
 	$(SRC_DIR)/ft_isspace.c \
+	$(SRC_DIR)/ft_itoa.c \
+	$(SRC_DIR)/ft_strjoin.c \
+	$(SRC_DIR)/ft_strlen.c \
+	\
+	$(SRC_DIR)/errors.c \
 	$(SRC_DIR)/init.c \
 	$(SRC_DIR)/parse.c \
 	$(SRC_DIR)/philo.c \
 	$(SRC_DIR)/semaphores.c \
+	\
 	$(SRC_DIR)/util_time.c \
-	$(SRC_DIR)/ft_itoa.c \
-	$(SRC_DIR)/ft_strjoin.c \
-	$(SRC_DIR)/ft_strlen.c \
+	$(SRC_DIR)/philo_utils.c \
 
 
 TEST_SRCS = 
