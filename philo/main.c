@@ -6,7 +6,7 @@
 /*   By: ykimirti <ykimirti@42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 18:15:28 by ykimirti          #+#    #+#             */
-/*   Updated: 2022/09/14 18:57:58 by ykimirti         ###   ########.tr       */
+/*   Updated: 2022/09/14 19:07:10 by ykimirti         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,10 +71,16 @@ bool	check_is_all_done(t_vars *vars)
 	return (true);
 }
 
+void	stop_all(t_vars *vars)
+{
+	pthread_mutex_lock(&vars->mutex);
+	vars->stop = true;
+	pthread_mutex_unlock(&vars->mutex);
+}
+
 void	check_for_death(t_vars *vars)
 {
 	int		i;
-	t_time	diff;
 
 	while (true)
 	{
@@ -85,18 +91,14 @@ void	check_for_death(t_vars *vars)
 			if (did_philo_starve(&vars->philos[i], true))
 			{
 				print_status(&vars->philos[i], "died");
-				pthread_mutex_lock(&vars->mutex);
-				vars->stop = true;
-				pthread_mutex_unlock(&vars->mutex);
+				stop_all(vars);
 				return ;
 			}
 			i++;
 		}
 		if (!vars->is_infinite && check_is_all_done(vars))
 		{
-			pthread_mutex_lock(&vars->mutex);
-			vars->stop = true;
-			pthread_mutex_unlock(&vars->mutex);
+			stop_all(vars);
 			return ;
 		}
 	}

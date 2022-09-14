@@ -1,10 +1,10 @@
 NAME = philo
 
 # NOTE: Add -Werror here before pushing to intra
-CFLAGS = -MD -Wall -Wextra -Ilibft -g -fsanitize=thread
-LDFLAGS = -fsanitize=thread
-# CFLAGS = -MD -Wall -Wextra -Ilibft -O3
-# LDFLAGS =
+# CFLAGS = -MD -Wall -Wextra -Ilibft -g -fsanitize=thread
+# LDFLAGS = -fsanitize=thread
+CFLAGS = -MD -Wall -Wextra -Werror -Ilibft -O3
+LDFLAGS =
 LDLIBS =
 
 # NOTE: You have to have libcriterion.a file in your LIBRARY_PATH and criterion.h file in C_INCLUDE_PATH
