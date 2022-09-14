@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ykimirti <ykimirti@42istanbul.com.tr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/14 18:15:28 by ykimirti          #+#    #+#             */
+/*   Updated: 2022/09/14 18:16:03 by ykimirti         ###   ########.tr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stdio.h>
 #include "philo.h"
 #include <unistd.h>
@@ -15,7 +27,7 @@
 // [number_of_times_each_philosopher_must_eat]
 bool	parse_args(t_vars *vars, int argc, char **argv)
 {
-    if (argc < 5 || argc > 6)
+	if (argc < 5 || argc > 6)
 		return (exit_program("Argument count does not match\n"
 				"./philo philo_count time_to_die time_to_eat "
 				"time_to_sleep [must_eat_count]"));
