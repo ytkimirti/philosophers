@@ -6,7 +6,7 @@
 /*   By: ykimirti <ykimirti@42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 11:45:58 by ykimirti          #+#    #+#             */
-/*   Updated: 2022/09/14 16:07:24 by ykimirti         ###   ########.tr       */
+/*   Updated: 2022/09/14 17:28:52 by ykimirti         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,9 @@ void	wait_ms(int ms)
 // No need to terminate with newline
 void	print_status(t_philo *philo, char *msg)
 {
-	static t_time	start_time = 0;
-
-	if (start_time == 0)
-		start_time = get_time();
 	sem_wait(philo->vars->sem_writing);
 	if (!philo->vars->stop)
-		printf("%lld %d %s\n", get_time() - start_time, philo->id, msg);
+		printf("%lld %d %s\n", get_time(), philo->id, msg);
 	sem_post(philo->vars->sem_writing);
 }
 

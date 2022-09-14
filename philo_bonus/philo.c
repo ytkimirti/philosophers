@@ -6,7 +6,7 @@
 /*   By: ykimirti <ykimirti@42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 14:39:35 by ykimirti          #+#    #+#             */
-/*   Updated: 2022/09/14 16:06:41 by ykimirti         ###   ########.tr       */
+/*   Updated: 2022/09/14 18:16:51 by ykimirti         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,32 +30,24 @@
 void	*thread_func(t_state *state)
 {
 	t_time	time;
-	bool	is_dead;
 
-	is_dead = false;
-	print_status(state->philo, "Thread is here!");
 	while (true)
 	{
-		usleep(1000);
-		time = get_time();
+		usleep(100);
 		sem_wait(state->sem);
+		time = get_time();
 		if (time - state->last_eat_time > state->philo->vars->starve_time)
 		{
-			is_dead = true;
 			print_status(state->philo, "died");
+			break ;
 		}
 		else if (!state->philo->vars->is_infinite
 			&& state->eat_count > state->philo->vars->max_eat_count)
-		{
-			is_dead = true;
-		}
-		sem_post(state->sem);
-		if (is_dead)
-		{
-			sem_post(state->philo->vars->sem_closing);
 			break ;
-		}
+		sem_post(state->sem);
 	}
+	sem_post(state->sem);
+	sem_post(state->philo->vars->sem_closing);
 	return (NULL);
 }
 
@@ -73,8 +65,8 @@ void	philo_entry(t_philo *p)
 	pthread_t		thread;
 
 	init_stuff(&state, p);
-	print_status(p, "Philo has awaken!");
-	pthread_create(&thread, NULL, (void *(*)(void *))thread_func, (void *)&state);
+	pthread_create(&thread, NULL,
+		(void *(*)(void *))thread_func, (void *)&state);
 	if (p->id % 2 == 0)
 		usleep(1000 * (p->vars->eat_time / 2));
 	while (true)
