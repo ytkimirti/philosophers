@@ -68,7 +68,7 @@ run: all
 	./$(NAME) 2 3000 1000 500 3
 
 socrates: 
-	python3 ../socrates/socrates.py -n 0 ../
+	cd ../socrates && python3 socrates/socrates.py . -p 2
 
 re: fclean all
 
