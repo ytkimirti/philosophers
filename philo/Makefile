@@ -1,9 +1,10 @@
 NAME = philo
 
 # NOTE: Add -Werror here before pushing to intra
-# CFLAGS = -MD -Wall -Wextra -Ilibft -g
-CFLAGS = -MD -Wall -Wextra -Ilibft -O3
-LDFLAGS =
+CFLAGS = -MD -Wall -Wextra -Ilibft -g -fsanitize=thread
+LDFLAGS = -fsanitize=thread
+# CFLAGS = -MD -Wall -Wextra -Ilibft -O3
+# LDFLAGS =
 LDLIBS =
 
 # NOTE: You have to have libcriterion.a file in your LIBRARY_PATH and criterion.h file in C_INCLUDE_PATH
@@ -26,6 +27,8 @@ SRCS = $(SRC_DIR)/errors.c \
 			 $(SRC_DIR)/util_time.c \
 			 $(SRC_DIR)/philo.c \
 			 $(SRC_DIR)/init.c \
+			 $(SRC_DIR)/stop_mutex.c \
+			 $(SRC_DIR)/philo_utils.c \
 
 TEST_SRCS = 
 
