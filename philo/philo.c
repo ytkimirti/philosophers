@@ -6,7 +6,7 @@
 /*   By: ykimirti <ykimirti@42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 18:15:33 by ykimirti          #+#    #+#             */
-/*   Updated: 2022/09/14 18:15:50 by ykimirti         ###   ########.tr       */
+/*   Updated: 2022/09/14 18:26:11 by ykimirti         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,13 @@ void	wait_ms(t_vars *vars, int ms)
 void	philo_eat(t_philo *p)
 {
 	pthread_mutex_lock(&p->vars->forks[(p->id - 1) % p->vars->count]);
-	pthread_mutex_lock(&p->vars->forks[(p->id - 2) % p->vars->count]);
-	p->last_eat_time = get_time();
 	print_status(p, "has taken a fork");
-	wait_ms(p->vars, p->vars->eat_time);
-	pthread_mutex_unlock(&p->vars->forks[(p->id - 1) % p->vars->count]);
+	pthread_mutex_lock(&p->vars->forks[(p->id - 2) % p->vars->count]);
+	print_status(p, "has taken a fork");
+	p->last_eat_time = get_time();
 	pthread_mutex_unlock(&p->vars->forks[(p->id - 2) % p->vars->count]);
+	pthread_mutex_unlock(&p->vars->forks[(p->id - 1) % p->vars->count]);
+	wait_ms(p->vars, p->vars->eat_time);
 }
 
 // NOTES:
