@@ -6,7 +6,7 @@
 /*   By: ykimirti <ykimirti@42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 14:39:47 by ykimirti          #+#    #+#             */
-/*   Updated: 2022/09/12 11:40:13 by ykimirti         ###   ########.tr       */
+/*   Updated: 2022/09/14 17:24:58 by ykimirti         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ sem_t	*open_semaphore_with_id(char *prefix, int id, int initial)
 
 	id_str = ft_itoa(id);
 	final_str = ft_strjoin(prefix, id_str);
-	printf("Opening semaphore with name: %s\n", final_str);
 	sem = open_semaphore(final_str, initial);
 	free(id_str);
 	free(final_str);
