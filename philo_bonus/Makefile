@@ -2,8 +2,11 @@ NAME = philo_bonus
 
 # NOTE: Add -Werror here before pushing to intra
 # Use -fsanitize=thread for thread
-CFLAGS = -MD -Wall -Wextra -Ilibft -g -fsanitize=address
-LDFLAGS = -fsanitize=address
+# CFLAGS = -MD -Wall -Wextra -Ilibft -g -fsanitize=address
+# LDFLAGS = -fsanitize=address
+
+CFLAGS = -MD -Wall -Wextra -Werror -Ilibft -O3
+LDFLAGS =
 LDLIBS =
 
 # NOTE: You have to have libcriterion.a file in your LIBRARY_PATH and criterion.h file in C_INCLUDE_PATH

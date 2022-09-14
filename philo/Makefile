@@ -1,7 +1,8 @@
 NAME = philo
 
 # NOTE: Add -Werror here before pushing to intra
-CFLAGS = -MD -Wall -Wextra -Ilibft -g
+# CFLAGS = -MD -Wall -Wextra -Ilibft -g
+CFLAGS = -MD -Wall -Wextra -Ilibft -O3
 LDFLAGS =
 LDLIBS =
 
