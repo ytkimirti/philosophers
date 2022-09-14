@@ -6,10 +6,11 @@
 /*   By: ykimirti <ykimirti@42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 18:15:28 by ykimirti          #+#    #+#             */
-/*   Updated: 2022/09/14 18:16:03 by ykimirti         ###   ########.tr       */
+/*   Updated: 2022/09/14 18:57:58 by ykimirti         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <pthread.h>
 #include <stdio.h>
 #include "philo.h"
 #include <unistd.h>
@@ -54,12 +55,16 @@ bool	parse_args(t_vars *vars, int argc, char **argv)
 
 bool	check_is_all_done(t_vars *vars)
 {
-	int	i;
+	int		i;
+	bool	is_done;
 
 	i = 0;
 	while (i < vars->count)
 	{
-		if (!vars->philos[i].is_done)
+		pthread_mutex_lock(&vars->philos[i].mutex);
+		is_done = vars->philos[i].is_done;
+		pthread_mutex_unlock(&vars->philos[i].mutex);
+		if (!is_done)
 			return (false);
 		i++;
 	}
@@ -77,18 +82,21 @@ void	check_for_death(t_vars *vars)
 		i = 0;
 		while (i < vars->count)
 		{
-			diff = get_time() - vars->philos[i].last_eat_time;
-			if (!vars->philos->is_done && diff > vars->starve_time)
+			if (did_philo_starve(&vars->philos[i], true))
 			{
 				print_status(&vars->philos[i], "died");
+				pthread_mutex_lock(&vars->mutex);
 				vars->stop = true;
+				pthread_mutex_unlock(&vars->mutex);
 				return ;
 			}
 			i++;
 		}
-		if (check_is_all_done(vars))
+		if (!vars->is_infinite && check_is_all_done(vars))
 		{
+			pthread_mutex_lock(&vars->mutex);
 			vars->stop = true;
+			pthread_mutex_unlock(&vars->mutex);
 			return ;
 		}
 	}

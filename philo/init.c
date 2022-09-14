@@ -6,7 +6,7 @@
 /*   By: ykimirti <ykimirti@42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 18:15:03 by ykimirti          #+#    #+#             */
-/*   Updated: 2022/09/14 18:15:50 by ykimirti         ###   ########.tr       */
+/*   Updated: 2022/09/14 18:32:41 by ykimirti         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ bool	init_philosophers(t_vars *vars)
 		vars->philos[i].is_done = false;
 		vars->philos[i].vars = vars;
 		vars->philos[i].last_eat_time = get_time();
+		if (pthread_mutex_init(&(vars->philos[i].mutex), NULL))
+			return (false);
 		i++;
 	}
 	return (true);

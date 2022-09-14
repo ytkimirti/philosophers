@@ -6,7 +6,7 @@
 /*   By: ykimirti <ykimirti@42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 18:15:47 by ykimirti          #+#    #+#             */
-/*   Updated: 2022/09/14 18:15:48 by ykimirti         ###   ########.tr       */
+/*   Updated: 2022/09/14 18:36:22 by ykimirti         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ typedef long long	t_time;
 
 struct				s_vars;
 
+// The mutex is for `last_eat_time` and `is_done`
 typedef struct s_philo
 {
 	int						id;
@@ -29,8 +30,10 @@ typedef struct s_philo
 	t_time					last_eat_time;
 	pthread_t				thread;
 	struct s_vars			*vars;
+	pthread_mutex_t			mutex;
 }	t_philo;
 
+// The mutex is for `stop`
 typedef struct s_vars
 {
 	int				count;
@@ -43,6 +46,7 @@ typedef struct s_vars
 	bool			stop;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	writing_lock;
+	pthread_mutex_t	mutex;
 }	t_vars;
 
 #endif
