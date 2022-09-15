@@ -6,7 +6,7 @@
 /*   By: ykimirti <ykimirti@42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 18:15:33 by ykimirti          #+#    #+#             */
-/*   Updated: 2022/09/15 13:26:12 by ykimirti         ###   ########.tr       */
+/*   Updated: 2022/09/15 13:39:59 by ykimirti         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,12 @@
 #include "utils.h"
 
 // No need to terminate with newline
-void	print_status(t_philo	*philo, char *msg)
+// If force is false, it checks if philo has starved
+// It does not print when stop variable is set even if
+// force is true
+void	print_status(t_philo	*philo, bool force, char *msg)
 {
-	if (did_philo_starve(philo, false))
+	if (!force && did_philo_starve(philo, false))
 		return ;
 	pthread_mutex_lock(&philo->vars->writing_lock);
 	if (!get_stop_mutex(philo->vars))
@@ -38,19 +41,26 @@ void	wait_ms(int ms)
 		usleep(30);
 }
 
+int modulo(int a, int b)
+{
+    while (a < 0)
+        a += b;
+    return (a % b);
+}
+
 void	philo_eat(t_philo *p)
 {
-	pthread_mutex_lock(&p->vars->forks[(p->id - 1) % p->vars->count]);
-	print_status(p, "has taken a fork");
-	pthread_mutex_lock(&p->vars->forks[(p->id - 2) % p->vars->count]);
-	print_status(p, "has taken a fork");
-	print_status(p, "is eating");
+	pthread_mutex_lock(&p->vars->forks[modulo((p->id - 1), p->vars->count)]);
+	print_status(p, false, "has taken a fork");
+	pthread_mutex_lock(&p->vars->forks[modulo((p->id - 2), p->vars->count)]);
+	print_status(p, false, "has taken a fork");
+	print_status(p, false, "is eating");
 	pthread_mutex_lock(&p->mutex);
 	p->last_eat_time = get_time();
 	pthread_mutex_unlock(&p->mutex);
 	wait_ms(p->vars->eat_time);
-	pthread_mutex_unlock(&p->vars->forks[(p->id - 2) % p->vars->count]);
-	pthread_mutex_unlock(&p->vars->forks[(p->id - 1) % p->vars->count]);
+	pthread_mutex_unlock(&p->vars->forks[modulo((p->id - 2), p->vars->count)]);
+    pthread_mutex_unlock(&p->vars->forks[modulo((p->id - 1), p->vars->count)]);
 }
 
 // NOTES:
@@ -79,9 +89,9 @@ void	*philo_loop(void *arg)
 			pthread_mutex_unlock(&p->mutex);
 			return (NULL);
 		}
-		print_status(p, "is sleeping");
+		print_status(p, false, "is sleeping");
 		wait_ms(p->vars->sleep_time);
-		print_status(p, "is thinking");
+		print_status(p, false, "is thinking");
 	}
 	return (NULL);
 }

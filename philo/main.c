@@ -6,7 +6,7 @@
 /*   By: ykimirti <ykimirti@42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 18:15:28 by ykimirti          #+#    #+#             */
-/*   Updated: 2022/09/14 19:07:10 by ykimirti         ###   ########.tr       */
+/*   Updated: 2022/09/15 14:20:53 by ykimirti         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,13 +84,13 @@ void	check_for_death(t_vars *vars)
 
 	while (true)
 	{
-		usleep(50);
+		usleep(100);
 		i = 0;
 		while (i < vars->count)
 		{
 			if (did_philo_starve(&vars->philos[i], true))
 			{
-				print_status(&vars->philos[i], "died");
+				print_status(&vars->philos[i], true, "died");
 				stop_all(vars);
 				return ;
 			}
