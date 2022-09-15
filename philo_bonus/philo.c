@@ -6,7 +6,7 @@
 /*   By: ykimirti <ykimirti@42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 14:39:35 by ykimirti          #+#    #+#             */
-/*   Updated: 2022/09/14 18:16:51 by ykimirti         ###   ########.tr       */
+/*   Updated: 2022/09/15 13:27:35 by ykimirti         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ void	philo_entry(t_philo *p)
 		sem_wait(p->vars->sem_forks);
 		print_status(p, "has taken a fork");
 		set_last_eat_time(&state, state.sem);
+		print_status(p, "is eating");
 		wait_ms(p->vars->eat_time);
 		sem_post(p->vars->sem_forks);
 		sem_post(p->vars->sem_forks);
