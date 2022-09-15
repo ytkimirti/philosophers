@@ -6,7 +6,7 @@
 /*   By: ykimirti <ykimirti@42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 18:15:03 by ykimirti          #+#    #+#             */
-/*   Updated: 2022/09/14 18:32:41 by ykimirti         ###   ########.tr       */
+/*   Updated: 2022/09/15 13:53:33 by ykimirti         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ bool	init_mutexes(t_vars *vars)
 		i++;
 	}
 	if (pthread_mutex_init(&(vars->writing_lock), NULL))
+		return (false);
+	if (pthread_mutex_init(&(vars->mutex), NULL))
 		return (false);
 	return (true);
 }
