@@ -6,7 +6,7 @@
 /*   By: ykimirti <ykimirti@42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 18:15:33 by ykimirti          #+#    #+#             */
-/*   Updated: 2022/09/15 13:39:59 by ykimirti         ###   ########.tr       */
+/*   Updated: 2022/09/21 22:19:39 by ykimirti         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,11 @@ void	wait_ms(int ms)
 		usleep(30);
 }
 
-int modulo(int a, int b)
+int	modulo(int a, int b)
 {
-    while (a < 0)
-        a += b;
-    return (a % b);
+	while (a < 0)
+		a += b;
+	return (a % b);
 }
 
 void	philo_eat(t_philo *p)
@@ -60,7 +60,7 @@ void	philo_eat(t_philo *p)
 	pthread_mutex_unlock(&p->mutex);
 	wait_ms(p->vars->eat_time);
 	pthread_mutex_unlock(&p->vars->forks[modulo((p->id - 2), p->vars->count)]);
-    pthread_mutex_unlock(&p->vars->forks[modulo((p->id - 1), p->vars->count)]);
+	pthread_mutex_unlock(&p->vars->forks[modulo((p->id - 1), p->vars->count)]);
 }
 
 // NOTES:

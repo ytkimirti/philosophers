@@ -6,7 +6,7 @@
 /*   By: ykimirti <ykimirti@42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 18:15:28 by ykimirti          #+#    #+#             */
-/*   Updated: 2022/09/15 14:20:53 by ykimirti         ###   ########.tr       */
+/*   Updated: 2022/09/21 22:16:39 by ykimirti         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,10 @@ bool	parse_args(t_vars *vars, int argc, char **argv)
 		vars->is_infinite = true;
 		vars->max_eat_count = 0;
 	}
-	if (vars->count < 2 || vars->starve_time < 0 || vars->eat_time < 0
+	if (vars->count < 1 || vars->starve_time < 0 || vars->eat_time < 0
 		|| vars->sleep_time < 0)
 		return (exit_program("All values should be positive and "
-				"There must be at least 2 philosophers."));
+				"There must be at least 1 philosopher."));
 	return (true);
 }
 
