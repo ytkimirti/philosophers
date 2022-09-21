@@ -6,7 +6,7 @@
 /*   By: ykimirti <ykimirti@42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 18:32:03 by ykimirti          #+#    #+#             */
-/*   Updated: 2022/09/14 17:32:00 by ykimirti         ###   ########.tr       */
+/*   Updated: 2022/09/21 22:22:04 by ykimirti         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ void	check_values(t_vars *vars)
 {
 	if (vars->count > SEM_VALUE_MAX)
 		exit_program("You can have at most SEM_VALUE_MAX forks!");
-	if (vars->count < 2
+	if (vars->count < 1
 		|| vars->starve_time < 0 || vars->eat_time < 0
 		|| vars->sleep_time < 0)
 		exit_program("All values should be positive and "
-			"There must be at least 2 philosophers.");
+			"There must be at least 1 philosopher.");
 }
 
 // Args are: 
